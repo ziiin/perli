@@ -65,28 +65,35 @@ class binarySearchTree:
             parentNode = self.root
             while ( True ):
                 print parentNode.data
+                if node.data == parentNode.data:
+                    if parentNode.leftNode is node:
+                        print "Found"
+                        parentNode.leftNode = None
+                        break
+                    elif parentNode.rightNode is node:
+                        print "Found"
+                        parentNode.rightNode = None
+                        break
                 if node.data < parentNode.data:
                     if parentNode.leftNode is node:
                         print "FOUND"
+                        parentNode.leftNode = None
                         break
                     else :
                         parentNode = parentNode.leftNode
                 else :
                     if parentNode.rightNode is node:
                         print "FOUND"
+                        parentNode.rightNode = None
                         break
                     else :
                         parentNode = parentNode.rightNode
-            if parentNode.leftNode is node:
-                parentNode.leftNode = None
-            else:
-                parentNode.rightNode = None
 
     def deleteElement (self, node):
         ''' deletes specific node of BST '''
         if node.leftNode == None and node.rightNode == None:
             print "Node being deleted is : " + str(node.data)
-            #self.detatchNode (node)
+            self.detatchNode (node)
         elif node.leftNode != None and node.rightNode != None:
             node.data = node.leftNode.data
             self.deleteElement (node.leftNode)
@@ -105,6 +112,18 @@ class binarySearchTree:
             self.deleteElement (node)
         else :
             print "Element not found, Can't delete"
+
+    def hasChild (self, node):
+        ''' Checks if node has children or not '''
+        if node == None:
+            print "Node is None"
+            return
+        else:
+            if node.leftNode != None or \
+               node.rightNode != None:
+                return True
+            else:
+                return False
 
 
 def main():
@@ -134,17 +153,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-'''
-tree = binarySearchTree(20)
-tree.insertNode (tree.root, 15)
-tree.insertNode (tree.root, 25)
-tree.insertNode (tree.root, 35)
-
-print "Inorder : "
-tree.printInorder(tree.root)
-
-print "Testing :"
-print "Root : " + str(tree.root.data)
-print "Left :" + str(tree.root.leftNode.data)
-print "Right : " + str(tree.root.rightNode.data)
-'''
